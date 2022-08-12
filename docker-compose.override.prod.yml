@@ -9,7 +9,7 @@ services:
     image: ark.hangar.live/rummy:${TAG}
     restart: always
     ports:
-      - "50999:50999"
+      - "50999:80"
     networks:
       - web
     labels:

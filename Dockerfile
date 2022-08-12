@@ -9,7 +9,7 @@ ENV NODE_ENV=production
 WORKDIR /app
 
 # application files
-COPY ["babel.config.js", "jest.config.js", "package.json", "package-lock.json*", "tsconfig.json", "vue.config.js", "", "./"]
+COPY [".browserslistrc", ".editorconfig", ".eslintrc.js", "babel.config.js", "cypress.json", "jest.config.js", "package.json", "package-lock.json*", "tsconfig.json", "vue.config.js", "./"]
 COPY [".env*", "./"]
 COPY ["src", "./src/"]
 COPY ["public", "./public/"]
@@ -28,5 +28,5 @@ RUN vue-cli-service build --mode production
 # Stage 2
 FROM nginx:stable-alpine as production-stage
 COPY --from=node /app/dist /usr/share/nginx/html
-EXPOSE 50999
+EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
