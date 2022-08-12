@@ -1,6 +1,7 @@
-import { Inject, Prop, Vue, Watch } from 'vue-property-decorator'
+import { Component, Inject, Prop, Vue, Watch } from 'vue-property-decorator'
 import { IRound, Round } from '@/shared/model/round/round.model'
 
+@Component({})
 export default class RoundScore extends Vue {
   @Prop({
     type: Object,
@@ -9,8 +10,12 @@ export default class RoundScore extends Vue {
   })
   round!: IRound;
 
-  @Prop()
-  scoreboard: any
+  @Prop({
+    type: Object,
+    required: true,
+    default: () => { return {} }
+  })
+  scoreboard!: { [k:string]: string[] }
 
   @Inject()
   readonly sharedState!: any
@@ -23,25 +28,19 @@ export default class RoundScore extends Vue {
   }
 
   @Watch('scoreboard', { deep: true })
-  onScoreBoardChange (newVal: any, oldVal: any) {
-    console.log('watcher')
-    this.updateActualScoreboard()
-  }
-
-  updateActualScoreboard (): void {
-    const scores = []
-
-    for (const player of this.round.players) {
-      scores.push(0)
+  onScoreBoardChange (newVal: { [k:string]: string[] }, oldVal: { [k:string]: string[] }) {
+    if (!this.actualScoreboardKeys) {
+      return
     }
+    this.actualScoreboard = []
 
-    // eslint-disable-next-line
-    // @ts-ignore
-    for (const key of this.actualScoreboardKeys) {
-      for (const playerIndex in this.round.players) {
-        scores[playerIndex] += this.scoreboard[key][playerIndex]
+    for (const [index, value] of this.round.players.entries()) {
+      this.actualScoreboard[index] = 0
+      for (let i = 0; i < this.actualScoreboardKeys.length; i++) {
+        const gameRoundKey = this.actualScoreboardKeys[i]
+        console.log(newVal[gameRoundKey][index])
+        this.actualScoreboard[index] += parseInt(newVal[gameRoundKey][index], 10)
       }
     }
-    this.$set(this, 'actualScoreboard', scores)
   }
 }

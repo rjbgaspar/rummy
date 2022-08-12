@@ -24,7 +24,7 @@ export default class GameRound extends Vue {
     return this.round.players.filter(item => item !== '').length
   }
 
-  public get validScore () {
+  public get isScoreValid () {
     const negativeScoresCount = this.scores.reduce((carry, current) => {
       return carry + (current < 0 ? 1 : 0)
     }, 0)
@@ -35,43 +35,40 @@ export default class GameRound extends Vue {
     this.bootScores()
   }
 
-  @Watch('validScore', {})
-  onValidScoreChange (newVal: boolean, oldVal: boolean) {
-    if (!oldVal && newVal) {
-      this.updateWinningScore()
+  @Watch('scores', {})
+  onScoresChange (newVal: string[]): void {
+    if (!this.isScoreValid) {
+      return
     }
-  }
 
-  public bootScores (): void {
-    this.round.players.forEach((value, index) => {
-      this.scores[index] = ''
-    })
-  }
-
-  public updateWinningScore (): void {
     let updateIndex: any | null = null
 
     this.round.players.forEach((value, index) => {
-      if (this.scores[index] === '' || parseInt(this.scores[index]) > 0) {
+      if (newVal[index] === '' || parseInt(newVal[index]) > 0) {
         if (updateIndex === null) {
           updateIndex = index
         }
       }
     })
 
-    const sum = this.scores
+    const sum = newVal
+      .map(it => parseInt(it, 10))
       .filter(item => item < 0)
       .reduce((carry, current) => {
-        if (isNaN(parseInt(current))) {
+        if (isNaN(current)) {
           return carry
         }
-        return carry + parseInt(current)
+        return carry + current
       }, 0)
 
-    console.log(sum)
-
-    this.scores[updateIndex] = sum * -1
+    this.scores[updateIndex] = `${sum * -1}`
 
     this.$emit('score-update', { name: this.round.name, scores: this.scores })
+  }
+
+  public bootScores (): void {
+    this.round.players.forEach((value, index) => {
+      this.scores[index] = ''
+    })
   }
 }

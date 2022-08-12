@@ -3,6 +3,8 @@ import GameRound from './components/game-round.vue'
 import SplashScreen from './components/splash-screen.vue'
 import { IRound, Round } from '@/shared/model/round/round.model'
 
+const ROUND_NAMES: string[] = ['2T', 'TS', '2S', '3T', '2TS', 'T2S', '3S']
+
 @Component({
   components: {
     GameRound,
@@ -14,18 +16,22 @@ export default class App extends Vue {
 
   public players: string[] = ['', '', '', '', '']
 
-  public roundNames: string[] = ['2T', 'TS', '2S', '3T', '2TS', 'T2S', '3S'];
+  public roundNames = [...ROUND_NAMES];
 
   public rounds: IRound[] = [];
 
-  public scoreboard: any = {};
+  public scoreboard: { [k:string]: string[] } = {
+    [ROUND_NAMES[0]]: [],
+    [ROUND_NAMES[1]]: [],
+    [ROUND_NAMES[2]]: [],
+    [ROUND_NAMES[3]]: [],
+    [ROUND_NAMES[4]]: [],
+    [ROUND_NAMES[5]]: [],
+    [ROUND_NAMES[6]]: []
+  };
 
   @Provide() sharedState = {
     roundNames: this.roundNames
-  }
-
-  created () {
-    this.bootScoreboard()
   }
 
   public get playersCount () {
@@ -34,18 +40,6 @@ export default class App extends Vue {
 
   public get currentRoundIndex () {
     return this.rounds.length
-  }
-
-  public bootScoreboard () {
-    this.roundNames.forEach((value, index) => {
-      const roundScore = []
-
-      for (const player of this.players) {
-        roundScore.push('')
-      }
-
-      this.scoreboard[value] = roundScore
-    })
   }
 
   public newRound () : void {
@@ -57,14 +51,11 @@ export default class App extends Vue {
     this.rounds.push(newRound)
   }
 
-  // public scoreUpdate ({ name, scores }) {
-  public scoreUpdate () {
-    // this.scoreboard[name] = scores
-    // this.$set(this.scoreboard, name, scores)
-
-    for (const refName in this.$refs) {
-      // this.$refs[refName][0].$refs.scoreboard.updateActualScoreboard()
-    }
+  public scoreUpdate (payload: { [k:string]: any }) {
+    this.$set(this.scoreboard, payload.name, payload.scores)
+    // for (const refName in this.$refs) {
+    //   // this.$refs[refName][0].$refs.scoreboard.updateActualScoreboard()
+    // }
   }
 
   public startPlaying () {

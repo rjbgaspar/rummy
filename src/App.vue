@@ -1,63 +1,49 @@
 <template>
-  <div class="row p-5">
+  <v-app>
+    <v-container>
 
-    <splash-screen
-      v-if="!playing"
-      v-on:start-playing="startPlaying"
-    >
-    </splash-screen>
+      <splash-screen
+        v-if="!playing"
+        v-on:start-playing="startPlaying"
+      >
+      </splash-screen>
 
-    <div v-else>
+      <div v-else>
+        <v-row>
+          <v-col cols="12" sm="12" md="2" class="d-flex align-center">
+              <h5>Players</h5>
+          </v-col>
+          <v-col v-for="(player, index) in players" :key="`player-${index}`">
+            <v-text-field dense label="Player" single-line v-model="players[index]"></v-text-field>
+          </v-col>
+        </v-row>
 
-      <div class="w-100 pt-4"></div>
+        <game-round
+          v-for="(item, index) in rounds"
+          :key="'round-' + roundNames[index]"
+          :ref="'round-' + roundNames[index]"
+          :round="item"
+          :round-names="roundNames"
+          :scoreboard="scoreboard"
+          @score-update="scoreUpdate"
+        ></game-round>
 
-      <div class="row">
-        <div class="col-2">
-          Players
-        </div>
-        <div class="col-2" v-for="(player, index) in players" :key="`player-2-${index}`">
-          <input v-model="players[index]" style="border: 2px solid black;">
-        </div>
-      </div>
+        <br>
 
-      <div class="w-100 pt-4"></div>
-
-      <div class="row">
-        <div class="col-2">
-          Round
-        </div>
-
-        <div class="col-2" v-for="(item, index) in players" :key="`player-2-${index}`">
-          {{ item }}
-        </div>
-      </div>
-
-      <game-round
-        v-for="(item, index) in rounds"
-        :key="'round-' + roundNames[index]"
-        :ref="'round-' + roundNames[index]"
-        :round="item"
-        :round-names="roundNames"
-        :scoreboard="scoreboard"
-        @score-update="scoreUpdate"
-      ></game-round>
-
-      <div class="w-100 pt-5"></div>
-
-      <span v-if="currentRoundIndex < 7">
-        <button class="btn btn-primary"
-                :disabled="playersCount < 2"
-                @click="newRound">
-          New Round
-        </button>
+        <span v-if="currentRoundIndex < 7">
+          <v-btn color="light-blue darken-4 white--text"
+                 :disabled="playersCount < 2"
+                 @click="newRound">
+            New Round
+          </v-btn>
       </span>
-      <span v-else>
+        <span v-else>
         You're on the last round.
       </span>
-    </div>
-  </div>
+      </div>
+
+    </v-container>
+  </v-app>
 </template>
 
 <script lang="ts" src="./app.component.ts"></script>
-<style>
-</style>
