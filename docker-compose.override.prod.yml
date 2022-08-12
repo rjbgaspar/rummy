@@ -1,0 +1,20 @@
+version: '3.7'
+
+networks:
+  web:
+    external: true
+
+services:
+  rummy:
+    image: ark.hangar.live/rummy:${TAG}
+    restart: always
+    ports:
+      - "50999:50999"
+    networks:
+      - web
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.rummy.entrypoints=https,http"
+      - "traefik.http.routers.rummy.rule=Host(`rummy.roots.grupo-valco.com`)"
+      - "traefik.http.routers.rummy.tls.certresolver=leresolver"
+      - "traefik.http.services.rummy.loadbalancer.server.port=50999"

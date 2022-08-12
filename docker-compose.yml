@@ -1,0 +1,7 @@
+version: '3.7'
+
+services:
+  rummy:
+    image: ark.hangar.live/rummy
+    ports:
+      - "50999:50999"
