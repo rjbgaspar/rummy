@@ -45,9 +45,9 @@ pushdevelop()
 
 execdeveloptomaster()
 {
-    git checkout master
+    git checkout main
     git merge develop
-    git push origin master
+    git push origin main
 }
 
 
