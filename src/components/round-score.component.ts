@@ -38,8 +38,11 @@ export default class RoundScore extends Vue {
       this.actualScoreboard[index] = 0
       for (let i = 0; i < this.actualScoreboardKeys.length; i++) {
         const gameRoundKey = this.actualScoreboardKeys[i]
-        console.log(newVal[gameRoundKey][index])
+        if (newVal[gameRoundKey][index] === '') {
+          newVal[gameRoundKey][index] = '0'
+        }
         this.actualScoreboard[index] += parseInt(newVal[gameRoundKey][index], 10)
+        // console.log(this.actualScoreboard[index])
       }
     }
   }

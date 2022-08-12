@@ -1,7 +1,9 @@
+import { IPlayer } from '@/shared/model/player/player.model'
+
 export interface IRound {
   name: string;
   index: number;
-  players: string[];
+  players: IPlayer[];
 }
 
 export class Round implements IRound {
@@ -9,6 +11,6 @@ export class Round implements IRound {
   constructor (
     public name: string,
     public index: number,
-    public players: string[]
+    public players: IPlayer[]
   ) {}
 }
