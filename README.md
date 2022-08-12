@@ -1,3 +1,5 @@
+![rummy](./docs/img/rummy.png)
+
 # rummy
 
 ## Project setup
