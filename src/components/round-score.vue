@@ -1,13 +1,13 @@
 <template>
 <v-row v-if="actualScoreboard.length > 0 && actualScoreboardKeys.length > 1" dense>
-  <v-col cols="12" sm="12" md="2" class="text-right text--secondary">
+  <v-col class="text--secondary">
     <p class="text-caption">Total: </p>
   </v-col>
   <v-col dense v-for="(item, index) in actualScoreboard" :key="`actual-score-${round.name}-${index}`"
-         class="text-right">
-    <h5 v-if="round.players[index] !== ''" >
+         class="text-caption text--secondary">
+    <p v-if="round.players[index].name !== ''" >
       {{ item }}
-    </h5>
+    </p>
 
   </v-col>
 </v-row>

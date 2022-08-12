@@ -21,7 +21,7 @@ export default class GameRound extends Vue {
   private scores: any[] = []
 
   public get playersCount () {
-    return this.round.players.filter(item => item !== '').length
+    return this.round.players.filter(item => item.name !== '').length
   }
 
   public get isScoreValid () {
