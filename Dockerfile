@@ -1,6 +1,3 @@
-# TAG=1.0 docker build --progress=plain -t ark.hangar.live/marut:${TAG} .
-# TAG=1.0 docker run -p 50101:50101 -v "/$(pwd)/nginx/site.conf:/etc/nginx/conf.d/default.conf" --network=web --name marut ark.hangar.live/marut:${TAG}
-
 # Stage 1
 FROM node:16.13.2 as node
 
@@ -8,9 +5,9 @@ ENV NODE_ENV=production
 
 WORKDIR /app
 
-# application files
+# Application files
 COPY [".browserslistrc", ".editorconfig", ".eslintrc.js", "babel.config.js", "cypress.json", "jest.config.js", "package.json", "package-lock.json*", "tsconfig.json", "vue.config.js", "./"]
-COPY [".env*", "./"]
+# COPY [".env*", "./"]
 COPY ["src", "./src/"]
 COPY ["public", "./public/"]
 
