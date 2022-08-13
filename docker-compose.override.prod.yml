@@ -8,8 +8,10 @@ services:
   rummy:
     image: ark.hangar.live/rummy:${TAG}
     restart: always
+    volumes:
+      - ./nginx/site.conf:/etc/nginx/conf.d/default.conf
     ports:
-      - "50999:80"
+      - "50999:50999"
     networks:
       - web
     labels:

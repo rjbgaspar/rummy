@@ -11,6 +11,9 @@ COPY [".browserslistrc", ".editorconfig", ".eslintrc.js", "babel.config.js", "cy
 COPY ["src", "./src/"]
 COPY ["public", "./public/"]
 
+# NGINX files
+COPY ["nginx", "./nginx"]
+
 # Install @vue/cli-service and @vue/cli globally
 RUN npm install -g @vue/cli-service
 RUN npm install -g @vue/cli
@@ -24,6 +27,7 @@ RUN vue-cli-service build --mode production
 
 # Stage 2
 FROM nginx:stable-alpine as production-stage
+COPY --from=node /app/nginx/*  /etc/nginx/conf.d/default.conf
 COPY --from=node /app/dist /usr/share/nginx/html
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+EXPOSE 50999
+# CMD ["nginx", "-g", "daemon off;"]

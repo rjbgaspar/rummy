@@ -4,4 +4,4 @@ services:
   rummy:
     image: ark.hangar.live/rummy
     ports:
-      - "50999:80"
+      - "50999:50999"
