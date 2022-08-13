@@ -7,7 +7,7 @@ module.exports = defineConfig({
     name: 'Rummy',
     manifestOptions: {
       startUrl: 'index.html',
-      display: 'standalone',
+      display: 'fullscreen',
       themeColor: '#000',
       backgroundColor: '#fff',
       orientation: 'portrait',
