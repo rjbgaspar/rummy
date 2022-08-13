@@ -1,4 +1,4 @@
-import { Component, Prop, Provide, Vue } from 'vue-property-decorator'
+import { Component, Vue } from 'vue-property-decorator'
 import SplashScreen from './components/splash-screen.vue'
 import PlayRummy from '@/components/play-rummy.vue'
 
