@@ -48,4 +48,15 @@ pipeline {
             }
         }
     }
+    post {
+        success {
+            // notifyDiscord("Deployed successfully ${imageName}:${BUILD_NUMBER} with message: ${commitMessage}")
+        }
+        failure {
+            // notifyDiscord("--- FAIL --- Failed to deploy ${imageName}:${BUILD_NUMBER} with message: ${commitMessage}")
+        }
+        always {
+            echo 'This will always run'
+        }
+    }
 }
