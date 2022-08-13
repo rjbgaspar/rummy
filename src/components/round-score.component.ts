@@ -28,7 +28,7 @@ export default class RoundScore extends Vue {
   }
 
   @Watch('scoreboard', { deep: true })
-  onScoreBoardChange (newVal: { [k:string]: string[] }, oldVal: { [k:string]: string[] }) {
+  onScoreBoardChange (newVal: { [k:string]: string[] }) {
     if (!this.actualScoreboardKeys) {
       return
     }
