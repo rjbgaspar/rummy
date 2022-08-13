@@ -1,11 +1,6 @@
 <template>
   <v-app>
-     <splash-screen
-        v-if="!playing"
-        v-on:start-playing="startPlaying"
-      >
-      </splash-screen>
-      <play-rummy v-else />
+     <router-view />
   </v-app>
 </template>
 

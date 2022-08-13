@@ -34,7 +34,7 @@ export default class RoundScore extends Vue {
     }
     this.actualScoreboard = []
 
-    for (const [index, value] of this.round.players.entries()) {
+    for (const [index] of this.round.players.entries()) {
       this.actualScoreboard[index] = 0
       for (let i = 0; i < this.actualScoreboardKeys.length; i++) {
         const gameRoundKey = this.actualScoreboardKeys[i]

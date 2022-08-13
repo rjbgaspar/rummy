@@ -4,12 +4,16 @@ import VueRouter, { RouteConfig } from 'vue-router'
 Vue.use(VueRouter)
 
 const routes: Array<RouteConfig> = [
-  // TODO create a game component and add here
-  // {
-  //   path: '/',
-  //   name: 'home',
-  //   component: HomeView
-  // },
+  {
+    path: '/',
+    name: 'home',
+    component: () => import('../views/home-view.vue')
+  },
+  {
+    path: '/play',
+    name: 'play',
+    component: () => import('../components/play-rummy.vue')
+  },
   {
     path: '/about',
     name: 'about',

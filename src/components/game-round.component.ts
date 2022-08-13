@@ -15,8 +15,11 @@ export default class GameRound extends Vue {
   })
   round!: IRound;
 
-  @Prop()
-  scoreboard: any;
+  @Prop({
+    type: Object,
+    required: true
+  })
+  scoreboard: {[k: string] : any[]} | undefined;
 
   private scores: any[] = []
 
