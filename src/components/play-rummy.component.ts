@@ -3,47 +3,42 @@ import GameRound from './game-round.vue'
 import { IRound, Round } from '@/shared/model/round/round.model'
 import { IPlayer, Player } from '@/shared/model/player/player.model'
 
-const ROUND_NAMES: string[] = ['2T', 'TS', '2S', '3T', '2TS', 'T2S', '3S']
-
-const EMPTY_SCORE: { [k:string]: string[] } = {
-  [ROUND_NAMES[0]]: [],
-  [ROUND_NAMES[1]]: [],
-  [ROUND_NAMES[2]]: [],
-  [ROUND_NAMES[3]]: [],
-  [ROUND_NAMES[4]]: [],
-  [ROUND_NAMES[5]]: [],
-  [ROUND_NAMES[6]]: []
-}
 @Component({
   components: {
     GameRound
   }
 })
 export default class PlayRummy extends Vue {
-  public players: IPlayer[] =[
-    new Player('', 0),
-    new Player('', 0),
-    new Player('', 0),
-    new Player('', 0),
-    new Player('', 0)
-  ]
+  public players: IPlayer[] = this.$store.getters.players
 
-  public roundNames = [...ROUND_NAMES];
+  public roundNames = this.$store.getters.roundNames;
 
-  public rounds: IRound[] = []
+  public rounds: IRound[] = this.$store.getters.rounds;
 
-  public scoreboard: { [k:string]: string[] } = EMPTY_SCORE;
+  public scoreboard: { [k:string]: string[] } = this.$store.getters.emptyScore;
 
   @Provide() sharedState = {
     roundNames: this.roundNames
   }
 
   public get playersCount () {
-    return this.players.filter(item => item.name !== '').length
+    return this.$store.getters.playersCount
   }
 
   public get currentRoundIndex () {
-    return this.rounds.length
+    return this.$store.getters.currentRoundIndex
+  }
+
+  public setPlayerName (name: string, index: number) {
+    this.$store.commit('setPlayerName', { index, name })
+  }
+
+  public incrementPlayerLuckyCount (index: number) {
+    this.$store.commit('incrementPlayerLuckyCount', { index })
+  }
+
+  public decrementPlayerLuckyCount (index: number) {
+    this.$store.commit('decrementPlayerLuckyCount', { index })
   }
 
   public get actionIcon (): string {
@@ -67,16 +62,17 @@ export default class PlayRummy extends Vue {
       alert('Please add 2 players')
       return
     }
-    const newRound = new Round(this.roundNames[this.currentRoundIndex], this.currentRoundIndex, [...this.players])
-    this.rounds.push(newRound)
+    this.$store.commit('newRound', {
+      players: [...this.$store.getters.players],
+      currentRoundIndex: this.$store.getters.currentRoundIndex
+    })
   }
 
   public restart () : void {
-    this.$set(this, 'scoreboard', EMPTY_SCORE)
-    this.$set(this, 'rounds', [])
+    this.$store.commit('newGame')
   }
 
   public scoreUpdate (payload: { [k:string]: any }) {
-    this.$set(this.scoreboard, payload.name, payload.scores)
+    this.$store.commit('scoreUpdate', payload)
   }
 }
