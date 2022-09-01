@@ -26,7 +26,7 @@
             </v-badge>
           </v-col>
           <v-col class="text-right">
-            <v-btn fab dark x-small color="blue-grey darken-1" elevation="1"
+            <v-btn fab x-small color="blue-grey darken-1 white--tex text-right" elevation="1"
                    :disabled="players[index].name === '' || players[index].luckyCount >= 28"
                    @click="incrementPlayerLuckyCount(index)">
               <v-icon dark>mdi-plus</v-icon>
