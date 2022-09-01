@@ -15,7 +15,7 @@ export default class PlayRummy extends Vue {
 
   public rounds: IRound[] = this.$store.getters.rounds;
 
-  public scoreboard: { [k:string]: string[] } = this.$store.getters.emptyScore;
+  public scoreboard: { [k:string]: string[] } = this.$store.getters.scoreboard;
 
   @Provide() sharedState = {
     roundNames: this.roundNames

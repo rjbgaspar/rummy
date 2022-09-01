@@ -39,7 +39,7 @@ export const rummyStore: Module<RummyStateStorable, any> = {
   getters: {
     roundNames: state => state.roundNames,
     players: state => state.players,
-    emptyScore: state => state.scoreboard,
+    scoreboard: state => state.scoreboard,
     rounds: state => state.rounds,
     playersCount: state => state.players.filter(item => item.name !== '').length,
     currentRoundIndex: state => state.rounds.length

@@ -71,7 +71,11 @@ export default class GameRound extends Vue {
 
   public bootScores (): void {
     this.round.players.forEach((value, index) => {
-      this.scores[index] = ''
+      if (this.scoreboard) {
+        this.scores[index] = this.scoreboard[this.round.name][index] ?? ''
+      } else {
+        this.scores[index] = ''
+      }
     })
   }
 }
