@@ -12,7 +12,7 @@
         :key="`player-score-${player.name}`"
         v-model.number="scores[index]"
         input type="text"
-        inputmode="numeric"
+        inputmode="decimal"
       />
     </v-col>
   </v-row>
