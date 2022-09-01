@@ -13,6 +13,7 @@
         v-model.number="scores[index]"
         input type="text"
         inputmode="decimal"
+        pattern="[0-9]*"
       />
     </v-col>
   </v-row>
