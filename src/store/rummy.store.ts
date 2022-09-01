@@ -46,8 +46,9 @@ export const rummyStore: Module<RummyStateStorable, any> = {
   },
   mutations: {
     newGame (state) {
-      state.scoreboard = { ...EMPTY_SCORE }
-      state.rounds = []
+      ROUND_NAMES.forEach((it) => state.scoreboard[it].splice(0))
+      state.rounds.splice(0)
+      state.players.forEach(it => { it.luckyCount = 0 })
     },
     newRound (state, payload) {
       const newRound = new Round(state.roundNames[payload.currentRoundIndex], payload.currentRoundIndex, payload.players)

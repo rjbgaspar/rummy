@@ -46,4 +46,8 @@ export default class RoundScore extends Vue {
       }
     }
   }
+
+  created (): void {
+    this.onScoreBoardChange(this.scoreboard)
+  }
 }
