@@ -1,7 +1,7 @@
 import { Component, Provide, Vue } from 'vue-property-decorator'
 import GameRound from './game-round.vue'
-import { IRound, Round } from '@/shared/model/round/round.model'
-import { IPlayer, Player } from '@/shared/model/player/player.model'
+import { IRound } from '@/shared/model/round/round.model'
+import { IPlayer } from '@/shared/model/player/player.model'
 
 @Component({
   components: {
