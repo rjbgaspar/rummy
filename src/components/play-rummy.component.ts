@@ -13,6 +13,12 @@ export default class PlayRummy extends Vue {
 
   public roundNames = this.$store.getters.roundNames;
 
+  public biggerHeight = 220;
+
+  public smallerHeight = 80;
+
+  public isLuckyPanelVisible = false;
+
   public rounds: IRound[] = this.$store.getters.rounds;
 
   public scoreboard: { [k:string]: string[] } = this.$store.getters.scoreboard;
@@ -52,8 +58,10 @@ export default class PlayRummy extends Vue {
   public click () : void {
     if (this.currentRoundIndex < 7) {
       this.newRound()
+      this.$nextTick(() => window.scrollTo(0, document.body.scrollHeight))
     } else {
       this.restart()
+      this.$nextTick(() => window.scrollTo(0, 0))
     }
   }
 
