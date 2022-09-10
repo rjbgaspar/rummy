@@ -23,7 +23,7 @@ export default class PlayRummy extends Vue {
 
   public scoreboard: { [k:string]: string[] } = this.$store.getters.scoreboard;
 
-  public dialog = true;
+  public dialog = false;
 
   @Provide() sharedState = {
     roundNames: this.roundNames
