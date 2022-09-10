@@ -1,7 +1,7 @@
 <template>
   <div style="position: relative">
     <v-app-bar dark app :min-height="isLuckyPanelVisible ? biggerHeight : smallerHeight">
-      <v-container class="mt-2">
+      <v-container class="mt-2" style="max-width: 100vw;">
         <v-row>
           <v-col class="d-flex align-center" @click="isLuckyPanelVisible = !isLuckyPanelVisible">
             <v-icon>mdi-account-cog</v-icon>
@@ -41,7 +41,7 @@
       </v-container>
     </v-app-bar>
     <v-main :style="`padding: 0; position: absolute; top: ${ isLuckyPanelVisible ? biggerHeight : smallerHeight}px;`">
-      <v-container>
+      <v-container style="min-width: 100vw; max-width: 100vw;">
         <game-round
           v-for="(item, index) in rounds"
           :key="'round-' + roundNames[index]"
@@ -95,5 +95,10 @@
 .v-toolbar__content {
   height: auto !important;
   padding: 0;
+  justify-content: flex-start;
+  align-content: flex-start;
 }
+/** {*/
+/*  outline: 2px solid red !important;*/
+/*}*/
 </style>

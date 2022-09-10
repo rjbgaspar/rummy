@@ -15,7 +15,7 @@ export default class PlayRummy extends Vue {
 
   public biggerHeight = 220;
 
-  public smallerHeight = 80;
+  public smallerHeight = 86;
 
   public isLuckyPanelVisible = false;
 
