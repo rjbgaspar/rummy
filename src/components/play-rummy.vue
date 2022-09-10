@@ -1,6 +1,6 @@
 <template>
   <div style="position: relative">
-    <v-app-bar dark text="white" app :min-height="isLuckyPanelVisible ? biggerHeight : smallerHeight">
+    <v-app-bar dark app :min-height="isLuckyPanelVisible ? biggerHeight : smallerHeight">
       <v-container class="mt-2">
         <v-row>
           <v-col class="d-flex align-center" @click="isLuckyPanelVisible = !isLuckyPanelVisible">
