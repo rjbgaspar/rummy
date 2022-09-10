@@ -23,6 +23,8 @@ export default class PlayRummy extends Vue {
 
   public scoreboard: { [k:string]: string[] } = this.$store.getters.scoreboard;
 
+  public dialog = true;
+
   @Provide() sharedState = {
     roundNames: this.roundNames
   }
@@ -58,10 +60,8 @@ export default class PlayRummy extends Vue {
   public click () : void {
     if (this.currentRoundIndex < 7) {
       this.newRound()
-      this.$nextTick(() => window.scrollTo(0, document.body.scrollHeight))
     } else {
-      this.restart()
-      this.$nextTick(() => window.scrollTo(0, 0))
+      this.confirmRestart()
     }
   }
 
@@ -74,10 +74,17 @@ export default class PlayRummy extends Vue {
       players: [...this.$store.getters.players],
       currentRoundIndex: this.$store.getters.currentRoundIndex
     })
+    this.$nextTick(() => window.scrollTo(0, document.body.scrollHeight))
+  }
+
+  public confirmRestart () : void {
+    this.dialog = true
   }
 
   public restart () : void {
+    console.log('restart')
     this.$store.commit('newGame')
+    this.$nextTick(() => window.scrollTo(0, 0))
   }
 
   public scoreUpdate (payload: { [k:string]: any }) {
