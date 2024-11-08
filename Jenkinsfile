@@ -10,6 +10,7 @@ pipeline {
         registry = 'ark.hangar.live'
         registryCredential = 'docker01'
         imageName = 'rummy'
+        deploy = 'lockheed.hangar.live'
         // discordWebhook = ''
         commitMessage = sh (script: 'git log -1 --pretty=%B ${GIT_COMMIT}', returnStdout: true).trim()
     }
@@ -37,12 +38,18 @@ pipeline {
                 }
             }
         }
-        stage('Deploy to prod server') {
-            steps {
+        stage('Deploy to Lockheed') {
+            steps{
                 script {
-                    sshagent (credentials: ['prod-server-one']) {
-                        sh '''
-                        '''
+                    sshagent (credentials: ['docker01']) {
+                    sh '''
+                        $jenkins_ssh gvadmin@$deploy mkdir -p app_$imageName
+                        $jenkins_scp ./docker-compose.override.prod.yml gvadmin@$deploy:app_$imageName/docker-compose.override.yml
+                        $jenkins_scp ./docker-compose.yml gvadmin@$deploy:app_$imageName/docker-compose.yml
+                        $jenkins_ssh gvadmin@$deploy <<EOL
+                            cd app_$imageName
+                            TAG=$BUILD_NUMBER docker compose up -d --remove-orphans
+                    '''
                     }
                 }
             }
