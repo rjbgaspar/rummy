@@ -11,9 +11,9 @@
         v-if="round.players[index].name !== ''"
         :key="`player-score-${player.name}`"
         v-model.number="scores[index]"
-        input type="text"
+        type="text"
         inputmode="decimal"
-        pattern="[0-9]*"
+        pattern="[-0-9.]*"
       />
     </v-col>
   </v-row>
