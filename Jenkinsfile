@@ -41,7 +41,7 @@ pipeline {
         stage('Deploy to Lockheed') {
             steps{
                 script {
-                    sshagent (credentials: ['docker01']) {
+                    sshagent (credentials: ['gvadmin-docker01-github']) {
                     sh '''
                         $jenkins_ssh gvadmin@$deploy mkdir -p app_$imageName
                         $jenkins_scp ./docker-compose.override.prod.yml gvadmin@$deploy:app_$imageName/docker-compose.override.yml
