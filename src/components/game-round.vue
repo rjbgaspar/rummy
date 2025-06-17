@@ -7,14 +7,25 @@
     <v-col
         v-for="(player, index) in round.players" :key="`player-score-${index}-${player.name}`"
     >
-      <v-text-field dense
-        v-if="round.players[index].name !== ''"
-        :key="`player-score-${player.name}`"
-        v-model.number="scores[index]"
-        type="text"
-        inputmode="decimal"
-        pattern="[-0-9.]*"
-      />
+      <template v-if="isIOS">
+        <v-text-field dense
+          v-if="round.players[index].name !== ''"
+          :key="`player-score-${player.name}`"
+          v-model.number="scores[index]"
+          type="text"
+          @keypress="onKeyPress"
+        />
+      </template>
+      <template v-if="!isIOS">
+        <v-text-field dense
+          v-if="round.players[index].name !== ''"
+          :key="`player-score-${player.name}`"
+          v-model.number="scores[index]"
+          type="number"
+          pattern="[-?[0-9]*]"
+        />
+      </template>
+
     </v-col>
   </v-row>
 

@@ -43,17 +43,18 @@ pipeline {
                 script {
                     sshagent (credentials: ['gvadmin-docker01-github']) {
                     sh '''
-                        $jenkins_ssh gvadmin@$deploy mkdir -p app_$imageName
-                        $jenkins_scp ./docker-compose.override.prod.yml gvadmin@$deploy:app_$imageName/docker-compose.override.yml
-                        $jenkins_scp ./docker-compose.yml gvadmin@$deploy:app_$imageName/docker-compose.yml
-                        $jenkins_ssh gvadmin@$deploy <<EOL
-                            cd app_$imageName
-                            TAG=$BUILD_NUMBER docker compose up -d --remove-orphans
+                      $jenkins_ssh gvadmin@$deploy mkdir -p app_$imageName
+                      $jenkins_scp ./docker-compose.override.prod.yml gvadmin@$deploy:app_$imageName/docker-compose.override.yml
+                      $jenkins_scp ./docker-compose.yml gvadmin@$deploy:app_$imageName/docker-compose.yml
+                      $jenkins_ssh gvadmin@$deploy <<EOL
+                        cd app_$imageName
+                        TAG=$BUILD_NUMBER docker compose up -d --remove-orphans
                     '''
-                    }
+                  }
                 }
+              }
             }
-        }
+          }
     }
     post {
         success {

@@ -78,4 +78,25 @@ export default class GameRound extends Vue {
       }
     })
   }
+
+  public get isIOS (): boolean {
+    return /iPad|iPhone|iPod/.test(navigator.userAgent)
+  }
+
+  public onKeyPress (event: KeyboardEvent): void {
+    const char = String.fromCharCode(event.which)
+    const input = event.target as HTMLInputElement
+    const currentValue = input.value
+
+    // Allow numbers
+    if (/[0-9]/.test(char)) return
+
+    // Allow minus only at the beginning and if not already present
+    if (char === '-' && input.selectionStart === 0 && !currentValue.includes('-')) return
+
+    // Allow backspace, delete, tab, escape, enter
+    if ([8, 9, 27, 13, 46].indexOf(event.keyCode) !== -1) return
+
+    event.preventDefault()
+  }
 }
